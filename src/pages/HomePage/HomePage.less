@@ -1,40 +1,69 @@
-
-*,h1,h2,h3,h4,h5,h6,ul,li{
+*,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   list-style: none;
-  font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  margin-bottom: 0 !important;
+  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 }
-.search-container{
-  background: linear-gradient(to bottom,#fecf53 25%,#feba02 100%);
-  padding:10px;
+
+.search-container {
+  background: linear-gradient(to bottom, #fecf53 25%, #feba02 100%);
+  padding: 10px;
   width: 375px;
-  h1{
-    font-size:28px;
+  h1 {
+    font-size: 28px;
     font-weight: normal;
-    color:#003580;
+    color: #003580;
   }
-  h4{
-    color:#003580;
+  h4 {
+    color: #003580;
     font-size: 16px;
     font-weight: normal;
-    margin-top: 5px;
   }
-  .am-list-item{
-    border:solid 1px #d99b0a;
-    border-radius: 3px;
+  .checkdate {
     margin-top: 5px;
-  }
-  .am-list-content{
     display: flex;
-    align-items: center;
-    svg{
-      margin-right:5px;
+    justify-content: space-between;
+    .checkdate-item {
+      height: 60px;
+      width: 170px;
+      border: solid 1px #d99b0a;
+      border-radius: 2px;
+      background: #fff;
+      color: #444;
+      padding: 5px 10px;
+      font-size: 14px;
+      span {
+        border-top: solid 1px #ffe7a5;
+        color: #003580;
+        font-size: 20px;
+        display: block;
+      }
     }
   }
 
+  .search-btn{
+    margin-top: 20px;
+    button{
+      width: 355px;
+      height: 32px;
+      background:#1890ff;
+      color:#fff;
+      border: solid 1px #1890ff;
+      font-size:18px;
+    }
+  }
 }
-.btn{
-  width:375px;
+
+.btn {
+  width: 375px;
 }

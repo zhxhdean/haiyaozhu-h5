@@ -1,30 +1,8 @@
 import React, { Component } from 'react'
-import { Picker, List, Icon, DatePicker, Flex } from 'antd-mobile'
+
 import './HomePage.less'
 import { inject, observer } from 'mobx-react'
-
-const seasons = [
-  [
-    {
-      label: '2013',
-      value: '2013'
-    },
-    {
-      label: '2014',
-      value: '2014'
-    }
-  ],
-  [
-    {
-      label: '春',
-      value: '春'
-    },
-    {
-      label: '夏',
-      value: '夏'
-    }
-  ]
-]
+import DatePicker from '../../components/DatePicker/DatePicker'
 
 @inject('homePageStore')
 @observer
@@ -36,40 +14,61 @@ class HomePage extends Component {
   handleAdd = () => {
     this.props.homePageStore.add()
   }
+
+  handleShowDateModal = (name,date) => {
+    
+    if(name === 'showCheckInModal') {
+      this.props.homePageStore.setValue('showCheckInModal' , true)
+      this.props.homePageStore.setValue('showCheckOutModal' , false)
+      this.props.homePageStore.setValue('checkIn' , date)
+    }else if(name === 'showCheckOutModal'){
+      this.props.homePageStore.setValue('showCheckInModal' , false)
+      this.props.homePageStore.setValue('showCheckOutModal' , true)
+      this.props.homePageStore.setValue('checkOut' , date)
+    }
+    
+  }
+
+  handleClose = () => {
+    this.props.homePageStore.setValue('showCheckInModal' , false)
+    this.props.homePageStore.setValue('showCheckOutModal' , false)
+  }
+
+  handleSelectDate = (name, date) => {
+    console.log(name, date)
+    this.props.homePageStore.setValue(name, date)
+  }
+
   render() {
-    const minDate = new Date()
-    const { hotelList } = this.props.homePageStore || []
+    const { hotelList,checkIn,checkOut,showCheckInModal,showCheckOutModal } = this.props.homePageStore || []
     return (
       <div>
         <div className="search-container">
           <h1>全球酒店官网优惠任您淘</h1>
           <h4>官网预定更靠谱，更优惠......</h4>
-          <Picker
-            title="选择城市"
-            data={seasons}
-            cascade={false}
-            extra="请选择"
-          >
-            <List.Item arrow="horizontal">
-              <Icon type="search" />
-              目的地
-            </List.Item>
-          </Picker>
+          <div className="checkdate">
+            <div className="checkdate-item" onClick={this.handleShowDateModal.bind(this, 'showCheckInModal',checkIn)}>
+              入住日期
+              <span >{checkIn || '不限'}</span>
+            </div>
+            <div className="checkdate-item" onClick={this.handleShowDateModal.bind(this, 'showCheckOutModal',checkOut)}>
+            离店日期
+            <span >{checkOut|| '不限'}</span>
+            </div>
+          </div>
 
-          <Flex>
-            <Flex.Item>
-              <DatePicker mode="date" title="选择入住时间" extra="不限" minDate={minDate}>
-                <List.Item arrow="horizontal">入住时间</List.Item>
-              </DatePicker>
-            </Flex.Item>
-            <Flex.Item>
-              <DatePicker mode="date" title="选择退房时间" extra="不限" minDate={minDate}>
-                <List.Item arrow="horizontal">退房时间</List.Item>
-              </DatePicker>
-            </Flex.Item>
-          </Flex>
+          <div className="search-btn">
+          <button >搜 索</button>
+          </div>
+          
+          
+          <DatePicker title="请选入住日期" date={checkIn} show={showCheckInModal} onSelect={this.handleSelectDate.bind(this, 'checkIn')} onClose={this.handleClose}/>
+        <DatePicker title="请选离店日期" date={checkOut} show={showCheckOutModal} onSelect={this.handleSelectDate.bind(this, 'checkOut')} onClose={this.handleClose}/>
+     
+         
         </div>
-      </div>
+
+        </div>
     )
   }
 }

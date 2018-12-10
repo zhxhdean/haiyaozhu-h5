@@ -7,12 +7,13 @@ module.exports = function override(config, env) {
     [
       'import',
       {
-        libraryName: 'antd-mobile',
+        libraryName: 'antd',
         style: 'css'
       }
     ],
     config
   )
+
 
   config = rewireLess.withLoaderOptions({
     modifyVars: {
@@ -22,7 +23,6 @@ module.exports = function override(config, env) {
       '@text-color': 'rgba(0, 0, 0, .65)' // 主文本色
     }
   })(config, env)
-
 
   config.module.rules.push({
     test: /\.less$/,
@@ -39,15 +39,12 @@ module.exports = function override(config, env) {
         options: {
           plugins: () => [px2rem({ remUnit: 37.5 })]
         }
-      }
-      ,
+      },
       {
         loader: 'less-loader'
       }
     ]
   })
-
-
 
   // 装饰器
   injectBabelPlugin(

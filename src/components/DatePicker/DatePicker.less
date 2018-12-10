@@ -1,0 +1,80 @@
+.page{
+  padding-top: 30px;
+  position: fixed;
+  bottom:-450px;
+  transition: All 0.5s ease-in-out;
+  -webkit-transition:All 0.5s ease-in-out;
+  transform: translate(0,0px);
+  -webkit-transform: translate(0,0px);
+  left: 0px;
+  z-index: -3;
+  border-radius: 4px;
+  background:#fff;
+  .fixed{
+    position: fixed;
+    z-index: 11;
+    width:100%;
+    font-size: 16px;
+     margin-top: -25px;
+     div{
+       text-align: center;
+       i{
+         position: fixed;
+         right:10px;
+       }
+     }
+  }
+}
+.data-page{
+  font-size: 14px;
+  background:#fff;
+  height: 400px;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+
+}
+.bold{
+  font-weight: 700;
+}
+.month{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.today, .selected{
+  background:#d1e9ff;
+  color:#1890ff;
+  font-weight: bold;
+
+}
+.date{
+  justify-content: center;
+  width: 14%;
+  text-align: center;
+  height: 36px;
+  line-height: 36px;
+}
+.unable{
+  color:#ddd;
+}
+.weekend{
+  color:#f20;
+}
+
+.show{
+  position: absolute;
+  transition: All 0.5s ease-in-out;
+  -webkit-transition:All 0.5s ease-in-out;
+  transform: translate(0,-610px);
+  -webkit-transform: translate(0,-610px);
+  z-index: 9;
+}
+
+.show-iphonex{
+  position: absolute;
+  transition: All 0.5s ease-in-out;
+  -webkit-transition:All 0.5s ease-in-out;
+  transform: translate(0,-750px);
+  -webkit-transform: translate(0,-750px);
+  z-index: 9;
+}
