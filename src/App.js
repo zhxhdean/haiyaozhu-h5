@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { HashRouter as Router, Route,Switch} from 'react-router-dom'
 import {Provider} from 'mobx-react'
 import HomePage from './pages/HomePage/HomePage.js'
-import ChoiceDate from './pages/ChoiceDate/ChoiceDate'
+
 import './index.less'
 import homePageStore from './pages/HomePage/HomePage.Store'
 
@@ -19,7 +19,6 @@ class App extends Component {
     <Router>
       <Switch>
       <Route path="/" exact component ={HomePage}/>
-      <Route path="/date" component ={ChoiceDate} />
       </Switch>
     </Router>
     </Provider>)
