@@ -25,6 +25,15 @@
      }
   }
 }
+.mask{
+  z-index:5;
+  position: absolute;
+  left: 0;
+  top: -200px;
+  width:375px;
+  height: 100%;
+  background:transparent;
+}
 .data-page{
   font-size: 14px;
   background:#fff;
@@ -54,11 +63,13 @@
   height: 36px;
   line-height: 36px;
 }
-.unable{
-  color:#ddd;
-}
+
 .weekend{
   color:#f20;
+}
+// 优先级>weekend
+.unable{
+  color:#ddd;
 }
 
 .show{

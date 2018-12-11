@@ -16,7 +16,9 @@ class HomePage extends Component {
   }
 
   handleShowDateModal = (name,date) => {
-    
+    // 禁止页面滚动
+    document.getElementById('root').style.position = 'fixed';
+    document.getElementById('root').style.height='100%';
     if(name === 'showCheckInModal') {
       this.props.homePageStore.setValue('showCheckInModal' , true)
       this.props.homePageStore.setValue('showCheckOutModal' , false)
@@ -30,6 +32,9 @@ class HomePage extends Component {
   }
 
   handleClose = () => {
+    // 恢复页面
+    document.getElementById('root').style.position = 'initial';
+    document.getElementById('root').style.height='auto';
     this.props.homePageStore.setValue('showCheckInModal' , false)
     this.props.homePageStore.setValue('showCheckOutModal' , false)
   }
@@ -40,7 +45,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { hotelList,checkIn,checkOut,showCheckInModal,showCheckOutModal } = this.props.homePageStore || []
+    const { checkIn,checkOut,showCheckInModal,showCheckOutModal } = this.props.homePageStore || []
     return (
       <div>
         <div className="search-container">
@@ -63,7 +68,7 @@ class HomePage extends Component {
           
           
           <DatePicker title="请选入住日期" date={checkIn} show={showCheckInModal} onSelect={this.handleSelectDate.bind(this, 'checkIn')} onClose={this.handleClose}/>
-        <DatePicker title="请选离店日期" date={checkOut} show={showCheckOutModal} onSelect={this.handleSelectDate.bind(this, 'checkOut')} onClose={this.handleClose}/>
+        <DatePicker minDate={checkIn} title="请选离店日期" date={checkOut} show={showCheckOutModal} onSelect={this.handleSelectDate.bind(this, 'checkOut')} onClose={this.handleClose}/>
      
          
         </div>
