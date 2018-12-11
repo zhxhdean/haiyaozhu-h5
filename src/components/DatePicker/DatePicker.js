@@ -7,7 +7,10 @@ const Week = ['日', '一', '二', '三', '四', '五', '六']
 // 可配置显示几个月， 默认3个月， 传入month
 export default class DatePicker extends Component {
   handleChoiceDate = (val, e) => {
-    console.log(val)
+   if(e.target.className.includes('unable')){
+     //unable的日期不可以选
+     return
+   }
     e.target.className = 'date selected'
     this.props.onSelect(val)
     setTimeout(() => {

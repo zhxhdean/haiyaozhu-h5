@@ -9,6 +9,7 @@ import homePageStore from './pages/HomePage/HomePage.Store'
 const store = {
   homePageStore
 }
+
 // 方便调试
 window.__APPSTATE__ = store
 class App extends Component {
@@ -18,7 +19,7 @@ class App extends Component {
     <Provider {...store}>
     <Router>
       <Switch>
-      <Route path="/" exact component ={HomePage}/>
+      <Route path="/" exact component ={HomePage} />
       <Route path="/city" component={City}/>
       </Switch>
     </Router>
