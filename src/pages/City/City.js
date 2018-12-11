@@ -50,6 +50,7 @@ class City extends Component {
           <div className="city-item">
               西安
           </div>
+          
         </div>
 
         <div className={(active === 1 ? '_show' : '_hide') + ' city'} onClick={this.handleChoiceCity.bind(this)}>

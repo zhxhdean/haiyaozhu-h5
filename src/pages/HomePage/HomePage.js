@@ -3,7 +3,6 @@ import {Icon} from 'antd'
 import './HomePage.less'
 import { inject, observer } from 'mobx-react'
 import DatePicker from '../../components/DatePicker/DatePicker'
-
 @inject('homePageStore')
 @observer
 class HomePage extends Component {
