@@ -1,0 +1,74 @@
+.city-page{
+  position: relative;
+  width:375px;
+  overflow-x: hidden;
+  min-height: 667px;
+  .tab{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    li{
+      width: 187.5px;
+      text-align: center;
+      height: 42px;
+      line-height: 42px;
+      font-size:16px;
+      &.active{
+        border-bottom: 4px solid #1890ff;
+        color:#1890ff;
+        transition: All 0.25s ease-in-out;
+      }
+    }
+  }
+  .city{
+    position: absolute;
+    z-index:1;
+    left:375px;
+    top:42px;
+  }
+  .hot-city-title{
+    margin-top: 1px;
+    height: 36px;
+    line-height: 36px;
+    background:#eee;
+    color:rgba(0,0,0,.65);
+    padding-left: 20px;
+    font-size: 16px;
+    width: 375px;
+  }
+  .hot-city{
+    display:flex;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    .hot-city-item{
+      border:solid 1px #eee;
+      text-align: center;
+      width:105px;
+      font-size: 14px;
+      margin:10px;
+      height: 36px;
+      line-height: 36px;
+    }
+  }
+  .city-item{
+    box-sizing: border-box;
+    font-size: 14px;
+    padding-left: 20px;
+    height: 36px;
+    line-height: 36px;
+    border-top:solid 1px #eee;
+    width: 375px;
+    &:last-child{
+      border-bottom: solid 1px #eee;
+    }
+  }
+}
+
+._show{
+  transition: All 0.25s ease-in-out;
+  left:0px!important;
+}
+._hide{
+  transition: All 0.1s ease-in-out;
+  left:375px;
+}

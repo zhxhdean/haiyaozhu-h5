@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import {Icon} from 'antd'
 import './HomePage.less'
 import { inject, observer } from 'mobx-react'
 import DatePicker from '../../components/DatePicker/DatePicker'
@@ -40,17 +40,26 @@ class HomePage extends Component {
   }
 
   handleSelectDate = (name, date) => {
-    console.log(name, date)
     this.props.homePageStore.setValue(name, date)
   }
 
+  // 选择目的地
+  handleChangeCity = () => {
+    this.props.history.push({pathname: '/city'})
+  }
+
   render() {
-    const { checkIn,checkOut,showCheckInModal,showCheckOutModal } = this.props.homePageStore || []
+    const { checkIn,checkOut,showCheckInModal,showCheckOutModal,cityInfo } = this.props.homePageStore || []
     return (
       <div>
         <div className="search-container">
           <h1>全球酒店官网优惠任您淘</h1>
           <h4>官网预定更靠谱，更优惠......</h4>
+      
+          <div className="destination" onClick={this.handleChangeCity}>
+            <Icon type="search" />{cityInfo.cityName || '请选目的地'}
+          </div>
+
           <div className="checkdate">
             <div className="checkdate-item" onClick={this.handleShowDateModal.bind(this, 'showCheckInModal',checkIn)}>
               入住日期
