@@ -1,0 +1,63 @@
+.hotel-list-page{
+  font-size:14px;
+  .search{
+    padding: 10px;
+    position: relative;
+    .ant-select-selection__placeholder{
+      text-indent: 15px;
+    }
+    .ant-input {
+      text-indent: 15px;
+    }
+    .searchIcon{
+      position: absolute;
+      top:18px;
+      left:20px;
+    }
+    div{
+      width: 355px;
+    }
+  }
+  .hotel-list{
+    display: flex;
+    flex-wrap: wrap;
+    width: 375px;
+    padding:10px;
+    justify-content: space-between;
+    .hotel-item{
+      width:170px;
+      height: 100px;
+      background-size: cover;
+      border-radius: 5px;
+      margin-bottom: 30px!important;
+      .hotel-star{
+        position: relative;
+      }
+      .hotel-name{
+        height: 24px;
+        line-height: 24px;
+        background: rgba(0,0,0,.65);
+        color:#fff;
+        margin-top: 76px;
+        padding-left: 10px;
+      }
+      .hotel-promotion{
+        height: 24px;
+        line-height: 24px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border: 1px solid #ccc;
+        border-top: transparent;
+        padding-left: 10px;
+      }
+    }
+    .no-result{
+      text-align: center;
+      height: 32px;
+      line-height: 32px;
+      font-size: 14px;
+      width:375px;
+    }
+  }
+  
+}

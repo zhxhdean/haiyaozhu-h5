@@ -1,3 +1,6 @@
+#root{
+  padding-bottom: 32px;
+}
 button {
   display: inline-block;
   font-weight: 400;
@@ -22,4 +25,19 @@ button {
   color: rgba(0, 0, 0, 0.65);
   background-color: #fff;
   border-color: #d9d9d9;
+  outline:none;
+}
+
+.star{
+  position: absolute;
+  width:0px;
+  height: 16px;
+  background: url(./assets/images/stars.png) 0 0px repeat-x;
+}
+.unstar{
+  position: absolute;
+  margin:5px 0 0 10px;
+  width:80px;
+  height: 16px;
+  background: url(./assets/images/stars.png) 0 -16px repeat-x;
 }

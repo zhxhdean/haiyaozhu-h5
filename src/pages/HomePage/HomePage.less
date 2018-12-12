@@ -15,69 +15,128 @@ li {
   font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 }
 
-.search-container {
-  background: linear-gradient(to bottom, #fecf53 25%, #feba02 100%);
-  padding: 10px;
-  width: 375px;
-  h1 {
-    font-size: 28px;
-    font-weight: normal;
-    color: #003580;
-  }
-  h4 {
-    color: #003580;
-    font-size: 16px;
-    font-weight: normal;
-  }
-  .destination{
-    margin-top: 5px;
-    border: solid 1px #d99b0a;
-    color:#aaa;
-    width: 355px;
-    height: 32px;
-    line-height: 32px;
-    background:#fff;
-    border-radius: 3px;
-    font-size:16px;
-    padding-left:10px;
-    i{
-      margin-right: 5px;
+.home-page {
+  background: #e6edf6;
+  .search-container {
+    background: linear-gradient(to bottom, #fecf53 25%, #feba02 100%);
+    padding: 10px;
+    width: 375px;
+    h1 {
+      font-size: 28px;
+      font-weight: normal;
+      color: #003580;
     }
-  }
-  .checkdate {
-    margin-top: 5px;
-    display: flex;
-    justify-content: space-between;
-    .checkdate-item {
-      height: 60px;
-      width: 170px;
+    h4 {
+      color: #003580;
+      font-size: 16px;
+      font-weight: normal;
+    }
+    .destination {
+      margin-top: 5px;
       border: solid 1px #d99b0a;
-      border-radius: 2px;
+      color: #aaa;
+      width: 355px;
+      height: 32px;
+      line-height: 32px;
       background: #fff;
-      color: #444;
-      padding: 5px 10px;
-      font-size: 14px;
-      span {
-        border-top: solid 1px #ffe7a5;
-        color: #003580;
-        font-size: 20px;
-        display: block;
+      border-radius: 3px;
+      font-size: 16px;
+      padding-left: 10px;
+      i {
+        margin-right: 5px;
+      }
+    }
+    .checkdate {
+      margin-top: 5px;
+      display: flex;
+      justify-content: space-between;
+      .checkdate-item {
+        height: 60px;
+        width: 170px;
+        border: solid 1px #d99b0a;
+        border-radius: 2px;
+        background: #fff;
+        color: #444;
+        padding: 5px 10px;
+        font-size: 14px;
+        span {
+          border-top: solid 1px #ffe7a5;
+          color: #003580;
+          font-size: 20px;
+          display: block;
+        }
+      }
+    }
+    .search-btn {
+      margin-top: 20px;
+      button {
+        width: 355px;
+        height: 32px;
+        background: #1890ff;
+        color: #fff;
+        border: solid 1px #1890ff;
+        font-size: 18px;
       }
     }
   }
-
-  .search-btn{
+  .tips {
+    padding: 10px 10px 0;
+    color: #003580;
+    font-size: 14px;
+  }
+  .top-hotels {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    .hotel-item {
+      margin-top: 10px;
+      display: flex;
+      overflow: hidden;
+      background: #fff;
+      padding: 5px;
+      box-shadow: 0 2px 5px rgba(0, 53, 128, 0.6);
+      .item-right {
+        margin-left: 10px;
+        height: 100px;
+        overflow: hidden;
+        .hotel-name {
+          max-height: 40px;
+          font-weight: bold;
+          font-size: 14px;
+        }
+      }
+      .hotel-img {
+        flex-shrink: 0;
+        width: 160px;
+        height: 100px;
+        background-size: cover;
+      }
+      .promotion {
+        margin-top: 5px;
+        max-height: 36px;
+        line-height: 1.5;
+        color: #ff9900;
+        font-size: 12px;
+      }
+    }
+  }
+  .foot {
     margin-top: 20px;
-    button{
-      width: 355px;
-      height: 32px;
-      background:#1890ff;
+    background-color: #003580;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    a{
       color:#fff;
-      border: solid 1px #1890ff;
-      font-size:18px;
+      font-size:14px;
+      font-weight: bold;
+      text-decoration: underline;
+      margin: 0 5px;
     }
   }
 }
+
+
 
 .btn {
   width: 375px;

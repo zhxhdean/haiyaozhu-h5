@@ -1,0 +1,43 @@
+.toolbar{
+  background:#fff;
+  height: 32px;
+  display:flex;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  z-index: 10;
+  bottom: 0px;
+  left: 0px;
+  width:375px;
+  border-top: solid 1px #eee;
+  a{
+    height: 24px;
+    line-height: 24px;
+  }
+  span{
+    background: url(../../assets/images/icon_foot.png) no-repeat;
+    background-size: cover;
+    width:24px;
+    height: 24px;
+    display: inline-block;
+    color:transparent;
+    &.home{
+      background-position: 0 14%;
+      &.on{
+        background-position: 0 0;
+      }
+    }
+    &.chat{
+      background-position: 0 71%;
+      &.on{
+        background-position: 0 56%;
+      }
+    }
+    &.member{
+      background-position: 0 99%;
+      &.on{
+        background-position: 0 84%;
+      }
+    }
+  }
+}

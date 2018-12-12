@@ -1,4 +1,5 @@
 .page{
+  opacity: 0;
   padding-top: 30px;
   position: fixed;
   bottom:-450px;
@@ -37,7 +38,7 @@
 .data-page{
   font-size: 14px;
   background:#fff;
-  height: 400px;
+  height: 440px;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
 
@@ -76,9 +77,10 @@
   position: absolute;
   transition: All 0.5s ease-in-out;
   -webkit-transition:All 0.5s ease-in-out;
-  transform: translate(0,-500px);
-  -webkit-transform: translate(0,-500px);
-  z-index: 9;
+  transform: translate(0,-480px);
+  -webkit-transform: translate(0,-480px);
+  z-index: 90;
+  opacity: 1;
 }
 
 .show-iphonex{
@@ -87,5 +89,6 @@
   -webkit-transition:All 0.5s ease-in-out;
   transform: translate(0,-650px);
   -webkit-transform: translate(0,-650px);
-  z-index: 9;
+  z-index: 90;
+  opacity: 1;
 }

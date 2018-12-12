@@ -1,6 +1,7 @@
 
 import {observable, action} from 'mobx'
-
+import {TOP_HOTELS} from '../../service/urls'
+import {post} from '../../service/request'
 class HomePageStore {
 
   @observable showCheckInModal = false
@@ -8,17 +9,17 @@ class HomePageStore {
 
   @observable checkIn = ''
   @observable checkOut = ''
-  @observable hotelList = [{id:1, hotelName: '酒店名称'},{id:2, hotelName: '酒店名称2'}]
+  @observable hotelList = []
 
-  @observable cityInfo = {cityId: 0, cityName: ''}
-  @action
-  getList(){
-  }
+  @observable cityInfo = {cityId: 2, cityName: ''}
 
   @action
-  add (){
-    const index = this.hotelList.length + 1
-    this.hotelList.push({id:index, hotelName: `酒店名称${index}`})
+  async getList(){
+    const rsp = await post({url: TOP_HOTELS})
+    if(rsp.code === 0){
+      this.hotelList = rsp.data
+    }
+    return rsp
   }
 
   @action
