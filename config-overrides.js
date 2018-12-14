@@ -17,8 +17,8 @@ module.exports = function override(config, env) {
 
   config = rewireLess.withLoaderOptions({
     modifyVars: {
-      '@primary-color': '#003580',
-      '@link-color': '#1890ff', // 链接色
+      '@primary-color': '#1070f7',
+      '@link-color': '#1070f7', // 链接色
       '@font-size-base': '14px', // 主字号
       '@text-color': 'rgba(0, 0, 0, .65)' // 主文本色
     }

@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react'
 import DatePicker from '../../components/DatePicker/DatePicker'
 import DefaultImage from '../../common/img'
 import util from '../../common/util'
+import Head from '../../components/Head/Head'
 @inject('homePageStore', 'rootStore', 'hotelListStore')
 @observer
 class HomePage extends Component {
@@ -25,10 +26,11 @@ class HomePage extends Component {
     const { cityInfo, checkIn, checkOut } = this.props.homePageStore
     this.props.hotelListStore.setSearchCondition({
       city: cityInfo.cityId,
+      cityName: cityInfo.cityName,
       checkin: checkIn,
       checkout: checkOut
     })
-    this.props.history.push({pathname: '/list'})
+    this.props.history.push({pathname: `/list/${cityInfo.cityName}/${cityInfo.cityId}`})
   }
 
   handleShowDateModal = (name, date) => {
@@ -63,6 +65,10 @@ class HomePage extends Component {
     this.props.history.push({ pathname: '/city' })
   }
 
+  handleNavigator = hotelId => {
+    this.props.history.push({pathname: `/detail/${hotelId}`})
+  }
+
   render() {
     const { loading } = this.props.rootStore
     const {
@@ -75,13 +81,14 @@ class HomePage extends Component {
     } = this.props.homePageStore || []
     return (
       <div className="home-page">
+      <Head title="还要住酒店优惠平台"/>
         <div className="search-container">
           <h1>全球酒店官网优惠任您淘</h1>
           <h4>官网预定更靠谱，更优惠......</h4>
 
           <div className="destination" onClick={this.handleChangeCity}>
             <Icon type="search" />
-            {cityInfo.cityName || '请选目的地'}
+            {cityInfo.cityName || '请选择目的地'}
           </div>
 
           <div className="checkdate">
@@ -134,7 +141,7 @@ class HomePage extends Component {
           <div className="top-hotels">
             {hotelList.map(item => {
               return (
-                <div className="hotel-item" key={item.HotelId}>
+                <div className="hotel-item" key={item.HotelId} onClick={this.handleNavigator.bind(this, item.HotelId)}>
                   <div
                     className="hotel-img"
                     style={{

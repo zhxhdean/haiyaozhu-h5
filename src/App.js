@@ -3,11 +3,13 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import { Provider } from 'mobx-react'
 import HomePage from './pages/HomePage/HomePage.js'
 import HotelList from './pages/HotelList/HotelList.js'
+import HotelDetail from './pages/HotelDetail/HotelDetail.js'
 import City from './pages/City/City.js'
 import './index.less'
 import homePageStore from './pages/HomePage/HomePage.Store'
 import hotelListStore from './pages/HotelList/HotelList.Store'
 import cityStore from './pages/City/City.Store'
+import hotelDetailStore from './pages/HotelDetail/HotelDetail.Store'
 import rootStore from './store'
 import { getOpenId, getToken } from './service/request'
 import util from './common/util'
@@ -16,7 +18,8 @@ const store = {
   rootStore,
   homePageStore,
   hotelListStore,
-  cityStore
+  cityStore,
+  hotelDetailStore
 }
 
 // 方便调试
@@ -25,7 +28,7 @@ class App extends Component {
   componentWillMount() {
     if(window.location.href.includes('debug')){
       util.setStorage('_o', 'oAVoSweV7_70u_vKdFAR52zGEnsc')
-      util.setStorage('_t', '071ctaXS0e5o9Z1YExVS0fr9XS0ctaX5:1gWy5f:ySgWI5DCC4uMV4_5cqsGEgRgYwk')
+      util.setStorage('_t', '001GML8r1VRa5l0hr9ar16lM8r1GML8u:1gXcQk:WAolyCxU9bT7P4AwtvAKFdhHMis')
     }
     getOpenId().then(rsp => {
       if (rsp && rsp.code === 0) {
@@ -47,7 +50,8 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={HomePage} />
               <Route path="/city" component={City} />
-              <Route path="/list" component={HotelList}/>
+              <Route path="/list/:name/:id" component={HotelList}/>
+              <Route path="/detail/:id?" component={HotelDetail}/>
             </Switch>
 
             <ToolBar />

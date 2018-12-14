@@ -6,7 +6,8 @@ class HotelListStore {
     keyword: '',
     city: 0,
     checkin: '',
-    checkout: ''
+    checkout: '',
+    cityName: ''
   }
 
   @observable hotelList = []
@@ -23,7 +24,8 @@ class HotelListStore {
       keyword: '',
       city: option.city,
       checkin: option.checkin,
-      checkout: option.checkout
+      checkout: option.checkout,
+      cityName: option.cityName
     }
   }
 

@@ -55,7 +55,6 @@ export default class DatePicker extends Component {
     // 起始时间
     const _minDate = this.props.minDate || new Date()
     const minDate = new Date(_minDate)
-    console.log(minDate)
     const month = this.props.month || 3
     const months = []
     for (let i = 1; i <= month; i++) {

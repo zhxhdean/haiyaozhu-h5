@@ -12,3 +12,9 @@ export const SEARCH_HOTEL = 'search'
 export const AUTOCOMPLETE='autocomplete'
 
 export const CITY_LIST = 'citylist'
+
+// 酒店详情新消息
+export const HOTEL_DETAIL = 'hotelinfo'
+
+// 房价房态
+export const HOTEL_ROOM_PRICE ='roominfo'

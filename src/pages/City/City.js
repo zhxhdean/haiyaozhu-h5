@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './City.less'
 import { observer, inject } from 'mobx-react'
-
+import Head from '../../components/Head/Head'
 @inject('homePageStore', 'cityStore')
 @observer
 class City extends Component {
@@ -37,6 +37,7 @@ class City extends Component {
     const { domestic, overseas } = this.props.cityStore
     return (
       <div className="city-page">
+      <Head title="选择城市" back={true}/>
         <ul className="tab">
           <li
             className={active === 0 ? 'active' : ''}
@@ -59,7 +60,7 @@ class City extends Component {
           <h3 className="hot-city-title">国内热门</h3>
           <div className="hot-city">
           {domestic.filter(item => item.IsHot === true).map(item => {
-            return( <div className="hot-city-item" data-id={item.Id}>
+            return( <div key={item.Id} className="hot-city-item" data-id={item.Id}>
               {item.CityName}
           </div>)
           })}
@@ -82,7 +83,7 @@ class City extends Component {
           <h3 className="hot-city-title">国际热门</h3>
           <div className="hot-city">
           {overseas.filter(item => item.IsHot === true).map(item => {
-            return( <div className="hot-city-item" data-id={item.Id}>
+            return( <div  key={item.Id} className="hot-city-item" data-id={item.Id}>
               {item.CityName}
           </div>)
           })}

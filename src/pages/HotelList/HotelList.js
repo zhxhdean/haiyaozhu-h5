@@ -4,6 +4,7 @@ import { Spin, AutoComplete ,Icon } from 'antd'
 import DefaultImage from '../../common/img'
 import './HotelList.less'
 import util from '../../common/util'
+import Head from '../../components/Head/Head'
 const Option = AutoComplete.Option
 let canSearch = true
 @inject('hotelListStore', 'rootStore')
@@ -11,6 +12,15 @@ let canSearch = true
 class HotelList extends Component {
   componentDidMount() {
     console.log(this.props.hotelListStore.searchCondition)
+    const {name, id} = this.props.match.params
+    if(!this.props.hotelListStore.searchCondition.cityName){
+      this.props.hotelListStore.setSearchCondition({
+        city: id,
+        cityName: name,
+        checkin: '',
+        checkout: ''
+      })
+    }
     this.props.hotelListStore.searchHotelList()
   }
   // 联想
@@ -26,16 +36,21 @@ class HotelList extends Component {
   }
 
   // 搜索选中的
-  handleSearchHotel = value => {
+  handleSearchHotel = hotelId => {
     // todo 去酒店详情页
+    this.props.history.push({pathname: `/detail/${hotelId}`})
+  }
 
+  handleNavigator = hotelId => {
+    this.props.history.push({pathname: `/detail/${hotelId}`})
   }
   render() {
     const { loading } = this.props.rootStore
-    const { hotelList, autocompleteList } = this.props.hotelListStore
-    const option = autocompleteList.map(item => <Option key={item.HotelId}>{item.HotelName}</Option>)
+    const { hotelList, autocompleteList,searchCondition } = this.props.hotelListStore
+    const option = autocompleteList.map(item => <Option key={item.HotelId} value={item.HotelId+''}>{item.HotelName}</Option>)
     return (
       <div className="hotel-list-page">
+      <Head back={true} url="/" title={searchCondition.cityName ? `"${searchCondition.cityName}"的酒店优惠` : '搜索'}/>
         <div className="search">
           <AutoComplete
             onSelect={this.handleSearchHotel}
@@ -52,6 +67,7 @@ class HotelList extends Component {
             {hotelList.map(item => {
               return (
                 <div
+                onClick={this.handleNavigator.bind(this, item.HotelId)}
                   key={item.HotelId}
                   className="hotel-item"
                   style={{
