@@ -243,6 +243,8 @@ class HotelDetail extends Component {
                 </div>)
                 })
               }
+
+              {hotelRoomPriceList.length === 0 ? <div class="no-data">暂无数据</div> : ''}
              
 
               <DatePicker
