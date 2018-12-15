@@ -181,6 +181,12 @@ class HotelDetail extends Component {
             </div>
           )}
 
+          {
+            hotelDetail.HotelType === 2 && <div className="hotel-desc">
+              {util.removeHtmlTag(hotelDetail.HotelDesc)}
+            </div>
+          }
+
           {hotelDetail.HotelType === 0 && (
             <Spin spinning={loading2}>
             <div className="contract-hotel">
