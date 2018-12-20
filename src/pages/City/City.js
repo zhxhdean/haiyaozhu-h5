@@ -14,7 +14,6 @@ class City extends Component {
   componentWillMount() {
     this.props.cityStore.getList()
   }
-
   handleChangeTab = val => {
     this.setState({ active: val })
   }

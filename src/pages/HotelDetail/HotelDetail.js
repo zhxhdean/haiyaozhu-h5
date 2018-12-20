@@ -88,6 +88,12 @@ class HotelDetail extends Component {
     // todo搜索房价
   }
 
+  handleNavigator = hotelId => {
+    this.props.history.push({pathname: `/picture/${hotelId}`})
+  }
+  handleBooking = (hotel, room, subRoom, fee) => {
+    this.props.history.push({pathname: `/booking?hotelId=${hotel.HotelId}&hotelName=${hotel.HotelName}&roomName=${room.BaseRoomName}`})
+  }
   render() {
     const { loading,loading2 } = this.props.rootStore
     const {
@@ -108,7 +114,7 @@ class HotelDetail extends Component {
             <Carousel autoplay>
               {hotelDetail.hotelImageList.map((item, index) => {
                 return (
-                  <div key={index}>
+                  <div key={index} onClick={this.handleNavigator.bind(this, hotelDetail.HotelId)}>
                     <div
                       className="pic"
                       style={{
@@ -142,13 +148,18 @@ class HotelDetail extends Component {
               <h3>地址：{hotelDetail.hotelTrafficInfo.HotelAddress}</h3>
               <h3>
                 电话：
-                <a href="tel:0510-811121111">
+                <a href={`tel:${hotelDetail.hotelContactInfo.Tel}`}>
                   {hotelDetail.hotelContactInfo.Tel}
                   <Icon type="phone" />
                 </a>
               </h3>
             </div>
-            <div className="follow">订阅优惠推送</div>
+            <div>
+              <div className={hotelDetail.LikeNum > 0 ? 'followed' : 'follow'}>{hotelDetail.LikeNum > 0 ? '已订阅' : '订阅优惠推送'}</div>
+              {hotelDetail.HotelType === 0 ? <div className="wechat">微信联系<Icon type="wechat" /></div>: null}
+              
+            </div>
+           
           </div>
           {/* hotelType: 1 是官网酒店， 
           hotelType: 0 是签约酒店，需要展示房型房价 */}
@@ -234,7 +245,7 @@ class HotelDetail extends Component {
                     <div className="price-item-info">
                       <div className="price-item-room-name">
                         <h4>{item.BaseRoomName}</h4>
-                        <span>{item.RoomInfo.AreaRange}}平米 住{item.RoomInfo.Person}人 {item.RoomInfo.FloorRange}层</span>
+                        <span>{item.RoomInfo.AreaRange}平米 住{item.RoomInfo.Person}人 {item.RoomInfo.FloorRange}层</span>
                       </div>
                       <div className="price-item-booking">
                         <div>
@@ -243,7 +254,7 @@ class HotelDetail extends Component {
                         </div>
                        
                       </div>
-                      <button className="booking">预订</button>
+                      <button className="booking" onClick={this.handleBooking.bind(this, hotelDetail, item, subRoom, fee)}>预订</button>
                     </div>
                   </div>
                 </div>)

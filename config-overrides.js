@@ -1,5 +1,7 @@
 const { injectBabelPlugin } = require('react-app-rewired')
 const rewireLess = require('react-app-rewire-less')
+const webpack = require('webpack')
+const path = require('path');
 //px自动转换rem
 const px2rem = require('postcss-px2rem')
 module.exports = function override(config, env) {
@@ -14,6 +16,7 @@ module.exports = function override(config, env) {
     config
   )
 
+  config.resolve.alias['_src'] = path.resolve(__dirname, 'src/');
 
   config = rewireLess.withLoaderOptions({
     modifyVars: {
@@ -23,6 +26,36 @@ module.exports = function override(config, env) {
       '@text-color': 'rgba(0, 0, 0, .65)' // 主文本色
     }
   })(config, env)
+
+  if(process.env.NODE_ENV === 'production'){
+    // https://jeremygayed.com/dynamic-vendor-bundling-in-webpack-528993e48aab
+    config.plugins.push(
+      // Extract all 3rd party modules into a separate 'vendor' chunk
+      new webpack.optimize.SplitChunksPlugin({
+        cacheGroups: {
+          reactBase: {
+            name: 'reactBase',
+            test: (module) => {
+                return /react|redux|prop-types/.test(module.context);
+            },
+            chunks: 'initial',
+            priority: 10,
+          },
+          common: {
+            name: 'common',
+            chunks: 'initial',
+            priority: 2,
+            minChunks: 2,
+          },
+        }
+      }),
+      // Generate a 'manifest' chunk to be inlined in the HTML template
+
+
+      new webpack.HashedModuleIdsPlugin()
+    );
+
+  }
 
   config.module.rules.push({
     test: /\.less$/,

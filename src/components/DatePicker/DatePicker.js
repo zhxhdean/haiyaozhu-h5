@@ -18,6 +18,8 @@ export default class DatePicker extends Component {
     }, 100)
   }
 
+  
+
   // 当前月有多少天(month 从 0 开始的)
   getDaysOfMonth(year, month) {
     const rst = []
@@ -50,6 +52,7 @@ export default class DatePicker extends Component {
   }
 
   render() {
+
     //传入选中的日期
     const selected = this.props.date
     // 起始时间
