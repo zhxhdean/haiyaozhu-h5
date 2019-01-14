@@ -64,7 +64,9 @@ export default class DatePicker extends Component {
       months.push(i)
     }
     return (
-      <div
+     <div>
+<div className={this.props.show ? 'mask' : ''} style={{position:'fixed',zIndex: 10, top:0 ,left: 0, height: '100%', background: 'rgba(0,0,0,.5)'}}>  </div>
+<div
         className={
           this.props.show
             ? util.isIphoneX()
@@ -72,7 +74,7 @@ export default class DatePicker extends Component {
               : 'page show'
             : 'page'
         }
-      >
+      > 
         <div className="fixed">
           <div className="month bold">
             {this.props.title || '选择日期'}
@@ -192,6 +194,9 @@ export default class DatePicker extends Component {
           })}
         </div>
       </div>
-    )
+     </div>
+     
+    
+      )
   }
 }

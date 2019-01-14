@@ -19,31 +19,28 @@ class HotelDetail extends Component {
         this.props.rootStore.hideLoading()
         if (rsp.code !== 0) {
           util.showToast('数据加载失败')
-        }else{
-          if(this.props.hotelDetailStore.hotelDetail.HotelType === 0){
+        } else {
+          if (this.props.hotelDetailStore.hotelDetail.HotelType === 0) {
             this.props.rootStore.showLoading(2)
             this.props.hotelDetailStore
-            .getRoomPrice()
-            .then(rsp => {
-              this.props.rootStore.hideLoading(2)
-              if (rsp.code !== 0) {
+              .getRoomPrice()
+              .then(rsp => {
+                this.props.rootStore.hideLoading(2)
+                if (rsp.code !== 0) {
+                  util.showToast('房价加载失败')
+                }
+              })
+              .catch(err => {
+                this.props.rootStore.hideLoading(2)
                 util.showToast('房价加载失败')
-              }
-            })
-            .catch(err => {
-              this.props.rootStore.hideLoading(2)
-              util.showToast('房价加载失败')
-            })
+              })
           }
-         
         }
       })
       .catch(err => {
         this.props.rootStore.hideLoading()
         util.showToast('数据加载失败')
       })
-
-
   }
 
   handleShowDateModal = (name, date) => {
@@ -74,34 +71,69 @@ class HotelDetail extends Component {
     this.props.hotelDetailStore.setValue(name, date)
     this.props.rootStore.showLoading(2)
     this.props.hotelDetailStore
-    .getRoomPrice()
-    .then(rsp => {
-      this.props.rootStore.hideLoading(2)
-      if (rsp.code !== 0) {
+      .getRoomPrice()
+      .then(rsp => {
+        this.props.rootStore.hideLoading(2)
+        if (rsp.code !== 0) {
+          util.showToast('房价加载失败')
+        }
+      })
+      .catch(err => {
+        this.props.rootStore.hideLoading(2)
         util.showToast('房价加载失败')
-      }
-    })
-    .catch(err => {
-      this.props.rootStore.hideLoading(2)
-      util.showToast('房价加载失败')
-    })
+      })
     // todo搜索房价
   }
 
   handleNavigator = hotelId => {
-    this.props.history.push({pathname: `/picture/${hotelId}`})
+    this.props.history.push({ pathname: `/picture/${hotelId}` })
   }
   handleBooking = (hotel, room, subRoom, fee) => {
-    this.props.history.push({pathname: `/booking?hotelId=${hotel.HotelId}&hotelName=${hotel.HotelName}&roomName=${room.BaseRoomName}`})
+    const payType = subRoom.RoomInfoDataList[0].PayType === 'FG' ? 0 : 1
+    const { checkIn, checkOut } = this.props.hotelDetailStore
+    const night = util.getNights(checkIn, checkOut)
+    const params = {
+      hotelId: hotel.HotelId,
+      roomName: `${room.BaseRoomName}(${
+        subRoom.BedInfo.BedType
+      })(${util.getBreakfast(subRoom.RoomInfoDataList[0].FGBreakfast)})`,
+      hotelName: hotel.HotelName,
+      checkin: checkIn,
+      checkout: checkOut,
+      night: night,
+      price: subRoom.AveragePrice,
+      payType: payType,
+      roomId: +subRoom.RoomId,
+      hotelTel: hotel.hotelContactInfo.Tel,
+      breakfast: +subRoom.RoomInfoDataList[0].FGBreakfast,
+      hotelAddress: hotel.hotelTrafficInfo.HotelAddress
+    }
+    // 预订信息
+    sessionStorage.setItem('bookingInfo', JSON.stringify(params))
+    this.props.history.push({
+      pathname: `/booking?checkin=${checkIn}&checkout=${checkOut}&hotelId=${
+        hotel.HotelId
+      }&night=${night}&hotelName=${hotel.HotelName}&roomName=${
+        room.BaseRoomName
+      }(${subRoom.BedInfo.BedType})(${util.getBreakfast(
+        subRoom.RoomInfoDataList[0].FGBreakfast
+      )})&roomId=${subRoom.RoomId}&price=${
+        subRoom.AveragePrice
+      }&payType=${payType}&hotelTel=${hotel.hotelContactInfo.Tel}&breakfast=${
+        subRoom.RoomInfoDataList[0].FGBreakfast
+      }`
+    })
   }
+
   render() {
-    const { loading,loading2 } = this.props.rootStore
+    const { loading, loading2 } = this.props.rootStore
     const {
       hotelDetail,
       checkIn,
       checkOut,
       showCheckInModal,
-      showCheckOutModal,hotelRoomPriceList
+      showCheckOutModal,
+      hotelRoomPriceList
     } = this.props.hotelDetailStore
 
     const night = util.getNights(checkIn, checkOut)
@@ -114,7 +146,13 @@ class HotelDetail extends Component {
             <Carousel autoplay>
               {hotelDetail.hotelImageList.map((item, index) => {
                 return (
-                  <div key={index} onClick={this.handleNavigator.bind(this, hotelDetail.HotelId)}>
+                  <div
+                    key={index}
+                    onClick={this.handleNavigator.bind(
+                      this,
+                      hotelDetail.HotelId
+                    )}
+                  >
                     <div
                       className="pic"
                       style={{
@@ -155,11 +193,16 @@ class HotelDetail extends Component {
               </h3>
             </div>
             <div>
-              <div className={hotelDetail.LikeNum > 0 ? 'followed' : 'follow'}>{hotelDetail.LikeNum > 0 ? '已订阅' : '订阅优惠推送'}</div>
-              {hotelDetail.HotelType === 0 ? <div className="wechat">微信联系<Icon type="wechat" /></div>: null}
-              
+              <div className={hotelDetail.LikeNum > 0 ? 'followed' : 'follow'}>
+                {hotelDetail.LikeNum > 0 ? '已订阅' : '订阅优惠推送'}
+              </div>
+              {hotelDetail.HotelType === 0 ? (
+                <div className="wechat">
+                  微信联系
+                  <Icon type="wechat" />
+                </div>
+              ) : null}
             </div>
-           
           </div>
           {/* hotelType: 1 是官网酒店， 
           hotelType: 0 是签约酒店，需要展示房型房价 */}
@@ -192,95 +235,126 @@ class HotelDetail extends Component {
             </div>
           )}
 
-          {
-            hotelDetail.HotelType === 2 && <div className="hotel-desc">
+          {hotelDetail.HotelType === 2 && (
+            <div className="hotel-desc">
               {util.removeHtmlTag(hotelDetail.HotelDesc)}
             </div>
-          }
+          )}
 
           {hotelDetail.HotelType === 0 && (
             <Spin spinning={loading2}>
-            <div className="contract-hotel">
-              <div className="checkdate">
-                <div
-                  className="checkdate-item"
-                  onClick={this.handleShowDateModal.bind(
-                    this,
-                    'showCheckInModal',
-                    checkIn
-                  )}
-                >
-                  入住日期
-                  <span>{checkIn || '不限'}</span>
+              <div className="contract-hotel">
+                <div className="checkdate">
+                  <div
+                    className="checkdate-item"
+                    onClick={this.handleShowDateModal.bind(
+                      this,
+                      'showCheckInModal',
+                      checkIn
+                    )}
+                  >
+                    入住日期
+                    <span>{checkIn || '不限'}</span>
+                  </div>
+                  <div className="night">{night}晚</div>
+                  <div
+                    className="checkdate-item"
+                    onClick={this.handleShowDateModal.bind(
+                      this,
+                      'showCheckOutModal',
+                      checkOut
+                    )}
+                  >
+                    离店日期
+                    <span>{checkOut || '不限'}</span>
+                  </div>
                 </div>
-                <div className="night">{night}晚</div>
-                <div
-                  className="checkdate-item"
-                  onClick={this.handleShowDateModal.bind(
-                    this,
-                    'showCheckOutModal',
-                    checkOut
-                  )}
-                >
-                  离店日期
-                  <span>{checkOut || '不限'}</span>
-                </div>
-              </div>
 
-              {
-                hotelRoomPriceList.map((item, index) => {
+                {hotelRoomPriceList.map((item, index) => {
                   const roompic = item.BaseRoomImageList[0].ImageUrl
                   const subRoom = item.SubRoomList[0]
-                  const _fee = subRoom && subRoom.RefOption.ExchangeResource.find(item => item.ResourceType === 2)
+                  const _fee =
+                    subRoom &&
+                    subRoom.RefOption.ExchangeResource.find(
+                      item => item.ResourceType === 2
+                    )
                   const fee = (_fee && _fee.UsePoint) || 0
-                  return ( <div className="hotel-room-price" key={index}>
-                  <div className="hotel-room-price-item">
-                    <div
-                      className="price-item-pic"
-                      style={{
-                        backgroundImage:
-                          `url(${roompic})`
-                      }}
-                    />
-                    <div className="price-item-info">
-                      <div className="price-item-room-name">
-                        <h4>{item.BaseRoomName}</h4>
-                        <span>{item.RoomInfo.AreaRange}平米 住{item.RoomInfo.Person}人 {item.RoomInfo.FloorRange}层</span>
-                      </div>
-                      <div className="price-item-booking">
-                        <div>
-                          <span>{util.getBreakfast(subRoom.RoomInfoDataList[0].FGBreakfast)} {subRoom.BedInfo.BedType}</span>
-                          <em className="price">￥{subRoom.AveragePrice}  {fee ? `或${fee}积分` : ''}</em>
+                  const payType = subRoom.RoomInfoDataList[0].PayType === 'FG' ? 0 : 1
+                  return (
+                    <div className="hotel-room-price" key={index}>
+                      <div className="hotel-room-price-item">
+                        <div
+                          className="price-item-pic"
+                          style={{
+                            backgroundImage: `url(${roompic})`
+                          }}
+                        />
+                        <div className="price-item-info">
+                          <div className="price-item-room-name">
+                            <h4>{item.BaseRoomName}</h4>
+                            <span>
+                              {item.RoomInfo.AreaRange}平米 住
+                              {item.RoomInfo.Person}人{' '}
+                              {item.RoomInfo.FloorRange}层
+                            </span>
+                          </div>
+                          <div className="price-item-booking">
+                            <div>
+                              <span>
+                                {util.getBreakfast(
+                                  subRoom.RoomInfoDataList[0].FGBreakfast
+                                )}{' '}
+                                {subRoom.BedInfo.BedType}
+                              </span>
+                              <em className="price">
+                                ￥{subRoom.AveragePrice}{' '}
+                                {fee ? `或 ${fee}积分` : ''}
+                              </em>
+                            </div>
+                          </div>
+                          <div
+                            className="booking"
+                            onClick={this.handleBooking.bind(
+                              this,
+                              hotelDetail,
+                              item,
+                              subRoom,
+                              fee
+                            )}
+                          >
+                            预订
+                            <i>{payType === 0 ? '到店付' : '在线付'}</i>
+                          </div>
                         </div>
-                       
                       </div>
-                      <button className="booking" onClick={this.handleBooking.bind(this, hotelDetail, item, subRoom, fee)}>预订</button>
                     </div>
-                  </div>
-                </div>)
-                })
-              }
+                  )
+                })}
 
-              {hotelRoomPriceList.length === 0 ? <div className="no-data">暂无数据</div> : ''}
-             
+                {hotelRoomPriceList.length === 0 ? (
+                  <div className="no-data">暂无数据</div>
+                ) : (
+                  ''
+                )}
 
-              <DatePicker
-                title="请选入住日期"
-                date={checkIn}
-                show={showCheckInModal}
-                onSelect={this.handleSelectDate.bind(this, 'checkIn')}
-                onClose={this.handleClose}
-              />
-              <DatePicker
-                minDate={checkIn}
-                title="请选离店日期"
-                date={checkOut}
-                show={showCheckOutModal}
-                onSelect={this.handleSelectDate.bind(this, 'checkOut')}
-                onClose={this.handleClose}
-              />
-            </div>
-            </Spin>)}
+                <DatePicker
+                  title="请选入住日期"
+                  date={checkIn}
+                  show={showCheckInModal}
+                  onSelect={this.handleSelectDate.bind(this, 'checkIn')}
+                  onClose={this.handleClose}
+                />
+                <DatePicker
+                  minDate={checkIn}
+                  title="请选离店日期"
+                  date={checkOut}
+                  show={showCheckOutModal}
+                  onSelect={this.handleSelectDate.bind(this, 'checkOut')}
+                  onClose={this.handleClose}
+                />
+              </div>
+            </Spin>
+          )}
         </Spin>
       </div>
     )

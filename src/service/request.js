@@ -24,7 +24,7 @@ instance.interceptors.response.use(
       // 接口1 标示成功
       return { code: 0, data: rsp.data.data }
     }
-    return { code: 1 }
+    return { code: 1, msg: rsp.data.msg }
   
   },
   err => {
@@ -52,7 +52,7 @@ const getOpenId = () => {
   const code = util.getQuery('code')
   const debug = util.getQuery('debug')
   return instance
-    .post(debug ? `${WX_OPENID}?debug` : WX_OPENID, { code: code })
+    .post(debug ? `${WX_OPENID}?debug` : WX_OPENID, { code: code, location: window.location.href })
     .then(rsp => {
       return rsp
     })

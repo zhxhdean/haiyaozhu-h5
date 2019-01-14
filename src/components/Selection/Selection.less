@@ -1,0 +1,48 @@
+
+.selection-page{
+  .mask{
+    z-index:5;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width:375px;
+    height: 100%;
+    background:rgba(0,0,0,.5);
+    display: flex;
+    align-items: flex-end;
+  }
+  .fadein{
+    transform: translate3d(0,0,0);
+    transition: All 0.45s ease-in-out;
+  }
+  .fadeout{
+    transform: translate3d(0,812px,0);
+    transition: All 0.45s ease-in-out;
+  }
+  .main{
+    width: 375px;
+    background:#fff;
+    color:rgba(0,0,0,.65);
+    padding: 10px 10px 50px 10px;
+    h3{
+      font-size: 14px;
+      border-bottom: solid 1px #ddd;
+      height: 32px;
+      line-height: 32px;
+    }
+    ul li{
+      padding-right:10px;
+      border-bottom: solid 1px #ddd;
+      height: 32px;
+      line-height: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &.selected{
+        color:#1890ff;
+        background:#fff;
+      }
+    }
+  }
+}
+

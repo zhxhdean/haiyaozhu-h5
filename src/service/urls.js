@@ -18,3 +18,15 @@ export const HOTEL_DETAIL = 'hotelinfo'
 
 // 房价房态
 export const HOTEL_ROOM_PRICE ='roominfo'
+
+// 会员卡信息
+export const MEMBER_SHIP_CARD = 'membershipcard'
+
+// 可订检查
+export const CHECK_BOOKINGABLE = 'checkbookable'
+// 下单
+export const CREATE_ORDER = 'createorder'
+
+export const WX_CONFIG = 'wx_config'
+
+export const USERINFO = 'userinfo'

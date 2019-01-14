@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import './Head.less'
-import util from '../../common/util'
+// import util from '../../common/util'
 export default withRouter(
   class Head extends Component {
     handleBack = () => {
@@ -14,9 +14,6 @@ export default withRouter(
     }
     render() {
       const { title, back } = this.props
-      if (util.isWechat()) {
-        return null
-      } else {
         return (
           <div className="head">
             <div
@@ -26,7 +23,7 @@ export default withRouter(
             {title || '还要住酒店优惠平台'}
           </div>
         )
-      }
+      
     }
   }
 )

@@ -5,6 +5,16 @@ function isIphoneX() {
   )
 }
 
+function isMobile (str){
+  const reg = /^(13[0-9]|14[579]|15[^4,\D]|17[0135678]|18[0-9]|19[0-9])\d{8}$/;
+  return reg.test(str)
+}
+
+function isEmail (str){
+  const reg =/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
+  return reg.test(str)
+}
+
 function getStorage(key) {
   return localStorage.getItem(key) || ''
 }
@@ -83,6 +93,24 @@ const getToday = () => {
 }
 
 
+//date: 2018-12-18
+// return: 2018年12月18日
+// return: 12月18日
+const formatDate2 = (date, type=0) => {
+  if(!date){
+    return
+  }
+  const _arr = date.split('-')
+  if(type === 1){
+    return _arr[0]+'年'+_arr[1]+'月'+_arr[2]+'日'
+  }else if(type === 0){
+    return _arr[1]+'月'+_arr[2]+'日'
+  }else{
+    return date
+  }
+}
+
+
 // 住几晚 checkin: 2018-01-01 checkout:2018-01-03
 const getNights = (checkin, checkout) => {
   if(!checkin || !checkout){
@@ -114,5 +142,8 @@ export default {
   getTomorrow,
   getNights,
   getToday,
-  getBreakfast
+  getBreakfast,
+  formatDate2,
+  isMobile,
+  isEmail
 }

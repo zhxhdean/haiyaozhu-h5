@@ -10,7 +10,7 @@ export default withRouter(class Toolbar extends Component {
         <div className="toolbar">
           <Link to="/"><span className="home on">首页</span></Link>
           <Link to="/"><span className="chat">信息</span></Link>
-          <Link to="/"><span className="member">会员</span></Link>
+          <Link to="/member"><span className="member">会员</span></Link>
         </div>
       )
     }else{
