@@ -8,6 +8,14 @@ class RootStore{
 
   @observable userInfo = {}
 
+  // 当前是否在登录中
+  @observable logining = false
+
+  @action
+  setLogining(v){
+    this.logining = v
+  }
+
   @action 
   async getWXConfig (params){
     const rsp = await post({url: WX_CONFIG, data: params})
@@ -21,7 +29,7 @@ class RootStore{
   async getUserInfo(){
     const rsp = await post({url: USERINFO})
     if(rsp.code === 0){
-      this.userInfo = rsp.data
+      this.userInfo = rsp.data.userinfo
     }
     return rsp
   }

@@ -30,3 +30,5 @@ export const CREATE_ORDER = 'createorder'
 export const WX_CONFIG = 'wx_config'
 
 export const USERINFO = 'userinfo'
+
+export const MODIFY_USERINFO= 'modifyuserinfo'

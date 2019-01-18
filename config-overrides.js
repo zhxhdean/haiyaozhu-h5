@@ -27,7 +27,11 @@ module.exports = function override(config, env) {
     }
   })(config, env)
 
+
+
   if(process.env.NODE_ENV === 'production'){
+      // 生产环境推荐
+  config.devtool = 'cheap-module-source-map'
     // https://jeremygayed.com/dynamic-vendor-bundling-in-webpack-528993e48aab
     config.plugins.push(
       // Extract all 3rd party modules into a separate 'vendor' chunk

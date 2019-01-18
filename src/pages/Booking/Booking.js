@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Head from '_src/components/Head/Head'
 import './Booking.less'
 import util from '_src/common/util'
-import { Row, Col, Input, Icon, Spin } from 'antd'
+import { Row, Col, Input, Icon, Spin, Modal } from 'antd'
 import Selection from '_src/components/Selection/Selection'
 import { observer, inject } from 'mobx-react'
 
@@ -93,28 +93,31 @@ class Booking extends Component {
               let orderInfo = {}
               let bookingInfo = sessionStorage.getItem('bookingInfo')
               // 订单金额
-              bookingInfo &&
-                (orderInfo = JSON.parse(bookingInfo))
-              orderInfo.totalPrice = createOrderParams.items.Price.ActualPayPrice
+              bookingInfo && (orderInfo = JSON.parse(bookingInfo))
+              orderInfo.totalPrice =
+                createOrderParams.items.Price.ActualPayPrice
               orderInfo.orderNo = createOrderParams.items.OrderNo
-              orderInfo.number = createOrderParams.OrderItemList[0].Quantity
+              orderInfo.number =
+                createOrderParams.items.OrderItemList[0].Quantity
               if (payType === 0) {
                 // 现付， 接口返回订单状态 1?'已确认':'已提交' , todo 跳订单成功页面
                 orderInfo.orderStatus = rsp.data
                 sessionStorage.setItem('orderInfo', JSON.stringify(orderInfo))
-                this.props.history.push({pathname: '/ordersuccess'})
+                this.props.history.push({ pathname: '/ordersuccess' })
               } else {
                 //todo跳转支付页面
                 sessionStorage.setItem('bookingInfo', JSON.stringify(orderInfo))
                 this.props.history.push({
-                  pathname: `/payment/${rsp.data.prepayid}/${rsp.data.wxsign}`})
+                  pathname: `/payment/${rsp.data.prepayid}/${rsp.data.wxsign}`
+                })
               }
-            }else{
+            } else {
               util.showToast(rsp.msg, 3000)
             }
           })
           .catch(err => {
             this.props.rootStore.hideLoading()
+            window.alert(JSON.stringify(err))
             util.showToast('提交订单遇到错误', 3000)
           })
       }
@@ -130,7 +133,26 @@ class Booking extends Component {
       .then(rsp => {
         this.props.rootStore.hideLoading()
         if (rsp.code !== 0) {
-          util.showToast(rsp.msg, 3000)
+          if (rsp.msg === 'token无效') {
+            Modal.confirm({
+              title: '',
+              content: '请登录后再下单',
+              okText: '登录',
+              cancelText: '取消',
+              onOk() {
+                // todo 弹确认框
+                const location = encodeURIComponent(window.location.href)
+                // 登录需要在微信中，下单操作需要在微信中
+                // const location = encodeURIComponent('http://www.haiyaozhu.com/h5/#/booking?checkin=2019-01-15&checkout=2019-01-16&hotelId=37&night=1&hotelName=老磨坊精品酒店（丽江南诏公馆）&roomName=套房(大床)(无早)&roomId=142&price=628&payType=0&hotelTel=0888-6821888&breakfast=0')
+                const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf64b140d4d73bcc4&redirect_uri=${location}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+                window.location.replace(url)
+                //回跳回来带上了code
+                return false
+              }
+            })
+            // util.showToast('请登录后再下单', 3000)
+          }
+          // util.showToast(rsp.msg, 3000)
           return false
         }
         const bookingInfo = sessionStorage.getItem('bookingInfo')
@@ -364,7 +386,7 @@ class Booking extends Component {
             </Row>
             <Row>
               <Col span={6}>会员号：</Col>
-              <Col span={18}>{memberShipCard.CardNo}</Col>
+              <Col span={18}>{memberShipCard.CardNo || ''}</Col>
             </Row>
 
             <Selection
