@@ -10,6 +10,7 @@ import util from '_src/common/util'
 @observer
 class OrderDetail extends Component {
   componentDidMount() {
+    document.documentElement.scrollTop = 0
     const {id} = this.props.match.params
     this.props.rootStore.showLoading()
     this.props.orderStore.getOrderDetail(id).finally(() => this.props.rootStore.hideLoading())
