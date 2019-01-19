@@ -18,7 +18,7 @@ const NumberKeyBoard = ({ placeholder, value='', index = 0, style, onChange }) =
     )
     index = el_input.findIndex(item => item === target)
     let el = document.getElementsByClassName('number-keyboard')[index]
-    el.className = 'number-keyboard fadein-kb'
+    el && (el.className = 'number-keyboard fadein-kb')
     document.getElementsByClassName('number-keyboard-txt')[
       index
     ].children[0].className = 'focus'
@@ -27,7 +27,7 @@ const NumberKeyBoard = ({ placeholder, value='', index = 0, style, onChange }) =
   // 隐藏键盘
   const handleHideKeyBoard = (e) => {
     let el = document.getElementsByClassName('number-keyboard')[index]
-    el.className = 'number-keyboard fadeout-kb'
+    el && (el.className = 'number-keyboard fadeout-kb')
     resetFocus()
     onChange(value)
   }

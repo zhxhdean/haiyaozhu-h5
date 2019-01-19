@@ -14,6 +14,9 @@ export default withRouter(
     }
     render() {
       const { title, back } = this.props
+      const el = document.getElementsByClassName('head')
+      el && el.length === 1 && (el[0].nextSibling.style.marginTop = '45px')
+      // document.documentElement.scrollTop = 0
         return (
           <div className="head">
             <div

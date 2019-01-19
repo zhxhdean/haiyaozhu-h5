@@ -130,6 +130,24 @@ const getBreakfast = val => {
   return BREAK_FAST.get(val)
 } 
 
+const ORDER_STATUS = new Map([
+[0, '待确认'],
+[1, '酒店确认'],
+[100, '订单完成'],
+[10, '未支付'],
+[11, '已支付'],
+[101, '已取消']
+])
+
+const BED_TYPE = new Map([
+  [0, '大床'],
+  [1, '双床'],
+  [2, '一大一小'],
+  [3, '可大可小'],
+  [4, '三小床']
+])
+
+
 export default {
   isIphoneX,
   getStorage,
@@ -145,5 +163,7 @@ export default {
   getBreakfast,
   formatDate2,
   isMobile,
-  isEmail
+  isEmail,
+  ORDER_STATUS,
+  BED_TYPE
 }

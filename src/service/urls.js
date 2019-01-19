@@ -9,7 +9,7 @@ export const TOP_HOTELS = 'tophotels'
 // 酒店搜索
 export const SEARCH_HOTEL = 'search'
 
-export const AUTOCOMPLETE='autocomplete'
+export const AUTOCOMPLETE = 'autocomplete'
 
 export const CITY_LIST = 'citylist'
 
@@ -17,7 +17,7 @@ export const CITY_LIST = 'citylist'
 export const HOTEL_DETAIL = 'hotelinfo'
 
 // 房价房态
-export const HOTEL_ROOM_PRICE ='roominfo'
+export const HOTEL_ROOM_PRICE = 'roominfo'
 
 // 会员卡信息
 export const MEMBER_SHIP_CARD = 'membershipcard'
@@ -27,8 +27,16 @@ export const CHECK_BOOKINGABLE = 'checkbookable'
 // 下单
 export const CREATE_ORDER = 'createorder'
 
+// 微信配置
 export const WX_CONFIG = 'wx_config'
 
+// 获取用户信息
 export const USERINFO = 'userinfo'
 
-export const MODIFY_USERINFO= 'modifyuserinfo'
+// 修改个人信息
+export const MODIFY_USERINFO = 'modifyuserinfo'
+
+// 订单列表
+export const ORDER_LIST = 'orderlist'
+
+export const ORDER_DETAIL = 'orderinfo'

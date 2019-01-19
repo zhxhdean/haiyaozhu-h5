@@ -28,7 +28,8 @@ class City extends Component {
         target.dataset.id,
         target.innerText
       )
-      this.props.history.replace('/')
+      setTimeout(()=>this.props.history.replace('/'), 100)
+      
     }
   }
   render() {

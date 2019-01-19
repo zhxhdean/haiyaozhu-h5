@@ -10,8 +10,10 @@ import Booking from './pages/Booking/Booking'
 import City from './pages/City/City.js'
 import Payment from './pages/Payment/Payment.js'
 import OrderSuccess from './pages/Order/Order.Success'
+import OrderList from './pages/Order/OrderList'
 import Member from './pages/Member/Member.js'
 import Profile from './pages/Member/Profile/Profile.js'
+import OrderDetail from './pages/Order/OrderDetail'
 import './index.less'
 import homePageStore from './pages/HomePage/HomePage.Store'
 import hotelListStore from './pages/HotelList/HotelList.Store'
@@ -19,6 +21,7 @@ import cityStore from './pages/City/City.Store'
 import hotelDetailStore from './pages/HotelDetail/HotelDetail.Store'
 import bookingStore from './pages/Booking/Booking.Store'
 import memberStore from './pages/Member/Member.Store'
+import orderStore from './pages/Order/Order.Store'
 import rootStore from './store'
 import { getOpenId, getToken } from './service/request'
 import util from './common/util'
@@ -30,7 +33,8 @@ const store = {
   cityStore,
   hotelDetailStore,
   bookingStore,
-  memberStore
+  memberStore,
+  orderStore
 }
 
 // 方便调试
@@ -97,6 +101,8 @@ class App extends Component {
               <Route path="/booking" component={Booking} />
               <Route path="/payment/:prepayid/:paysign" component={Payment} />
               <Route path="/ordersuccess" component={OrderSuccess} />
+              <Route path="/order/list" component={OrderList} />
+              <Route path="/order/:id" component={OrderDetail}/>
               <Route path="/member/profile" component={Profile} />
               <Route path="/member" component={Member} />
               <Route path="/" exact component={HomePage} />
