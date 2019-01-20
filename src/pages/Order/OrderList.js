@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import './Order.less'
 import Head from '_src/components/Head/Head'
-import { Tabs, Button, Spin } from 'antd'
+import { Tabs, Button, Spin, Modal } from 'antd'
 import util from '_src/common/util'
 import moment from 'moment'
 const TabPane = Tabs.TabPane
@@ -14,7 +14,7 @@ class OrderList extends Component {
     if (!page) {
       this.props.orderStore.setPageIndex(1)
     }
-    
+
     this.props.orderStore.getOrderList()
     document.addEventListener('scroll', this.listenScroll)
   }
@@ -33,6 +33,10 @@ class OrderList extends Component {
     ].offsetHeight
     // 窗体高度
     const windowHeight = window.innerHeight
+    if(documentHeight < windowHeight){
+      // 没有超过一屏幕，不用加载
+      return
+    }
     if (windowHeight + scrollTop > documentHeight * 0.9 && !loading) {
       // 加载下一页数据
       console.log('加载下一页数据', pageIndex)
@@ -58,7 +62,20 @@ class OrderList extends Component {
 
   // 取消订单
   handleCancelOrder = (item, e) => {
-    console.log('取消订单')
+    Modal.confirm({ title: '提示', content: '请确定要取消此订单吗？' , okText:'确定', cancelText:'取消', onOk: () => {
+      this.props.rootStore.showLoading()
+      this.props.orderStore
+        .cancelOrder(item.OrderNo)
+        .then(rsp => {
+          if (rsp.code === 0) {
+            item.OrderStatus = 101
+            util.showToast('订单取消成功', 3000)
+          } else {
+            util.showToast('订单取消失败', 3000)
+          }
+        })
+        .finally(() => this.props.rootStore.hideLoading())
+    }})
   }
 
   render() {
@@ -84,7 +101,11 @@ class OrderList extends Component {
                     onCancel={this.handleCancelOrder.bind(this, item)}
                   />
                 ))}
-                {processingOrderList.length === 0 ? <div className="no-data">暂无订单</div> : ''}
+                {processingOrderList.length === 0 ? (
+                  <div className="no-data">暂无订单</div>
+                ) : (
+                  ''
+                )}
               </div>
             </TabPane>
             <TabPane tab="已结束" key="2">
@@ -93,11 +114,16 @@ class OrderList extends Component {
                   <OrderItem
                     key={index}
                     {...item}
+                    tabKey="2"
                     onClick={this.handleRedirectDetail.bind(this, item)}
                     onCancel={this.handleCancelOrder.bind(this, item)}
                   />
                 ))}
-                {finishOrderList.length === 0 ? <div className="no-data">暂无订单</div>  : ''}
+                {finishOrderList.length === 0 ? (
+                  <div className="no-data">暂无订单</div>
+                ) : (
+                  ''
+                )}
               </div>
             </TabPane>
           </Tabs>
@@ -108,6 +134,7 @@ class OrderList extends Component {
 }
 
 const OrderItem = ({
+  OrderNo,
   HotelName,
   HotelAddress,
   Price,
@@ -115,13 +142,14 @@ const OrderItem = ({
   TripDate,
   Quantity,
   onClick,
-  onCancel
+  onCancel,
+  tabKey
 }) => {
   const night = util.getNights(TripDate.CheckInDate, TripDate.CheckOutDate)
   return (
     <div className="order-item" onClick={onClick}>
       <div className="order-hotel-name">
-        <h1>{HotelName}</h1>{' '}
+        <h1>{OrderNo}</h1>{' '}
         <span className="price">￥{Price.ActualPayPrice}</span>
       </div>
       <div className="order-hotel-address">
@@ -135,11 +163,12 @@ const OrderItem = ({
         {new moment(TripDate.CheckOutDate).format('MM月DD日')} {night}晚/
         {Quantity}间{' '}
       </div>
-      <div className="order-hotel-action">
+      {tabKey === '2' ? null :  <div className="order-hotel-action">
         <Button type="danger" onClick={onCancel}>
           取消
         </Button>
-      </div>
+      </div>}
+     
     </div>
   )
 }

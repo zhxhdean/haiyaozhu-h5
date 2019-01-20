@@ -40,3 +40,6 @@ export const MODIFY_USERINFO = 'modifyuserinfo'
 export const ORDER_LIST = 'orderlist'
 
 export const ORDER_DETAIL = 'orderinfo'
+
+// 取消订单
+export const ORDER_CANCEL = 'cancelorder'

@@ -1,6 +1,6 @@
 import { post } from '_src/service/request'
 import { observable, action } from 'mobx'
-import { ORDER_LIST, ORDER_DETAIL } from '_src/service/urls'
+import { ORDER_LIST, ORDER_DETAIL,ORDER_CANCEL } from '_src/service/urls'
 class OrderStore {
   @observable orderList = []
 
@@ -50,6 +50,11 @@ class OrderStore {
       this.orderInfo = rsp.data[0]
     }
     return rsp
+  }
+
+  @action
+  async cancelOrder(orderid){
+    return await post({url: ORDER_CANCEL, data: {orderno: orderid}})
   }
 }
 export default new OrderStore()
