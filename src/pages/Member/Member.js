@@ -56,7 +56,7 @@ class Profile extends Component {
           <Link to={logined ? '/order/list' : '#'}><i className="icon order" /><span>我的订单</span><Icon type="right" /></Link>
           </dd>
           <dd>
-          <Link to="/member/coupon"><i className="icon coupon" /><span>酒店礼券</span><Icon type="right" /></Link>
+          <Link to={logined ? '/coupon/list' : '#'}><i className="icon coupon" /><span>酒店礼券</span><Icon type="right" /></Link>
           </dd>
         </dl>
 

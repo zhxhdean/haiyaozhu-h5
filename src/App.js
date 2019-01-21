@@ -14,6 +14,8 @@ import OrderList from './pages/Order/OrderList'
 import Member from './pages/Member/Member.js'
 import Profile from './pages/Member/Profile/Profile.js'
 import OrderDetail from './pages/Order/OrderDetail'
+import CouponList from './pages/Coupon/CouponList'
+import CouponDetail from './pages/Coupon/CouponDetail'
 import './index.less'
 import homePageStore from './pages/HomePage/HomePage.Store'
 import hotelListStore from './pages/HotelList/HotelList.Store'
@@ -22,6 +24,7 @@ import hotelDetailStore from './pages/HotelDetail/HotelDetail.Store'
 import bookingStore from './pages/Booking/Booking.Store'
 import memberStore from './pages/Member/Member.Store'
 import orderStore from './pages/Order/Order.Store'
+import couponStore from './pages/Coupon/Coupon.Store.js'
 import rootStore from './store'
 import { getOpenId, getToken } from './service/request'
 import util from './common/util'
@@ -34,7 +37,8 @@ const store = {
   hotelDetailStore,
   bookingStore,
   memberStore,
-  orderStore
+  orderStore,
+  couponStore
 }
 
 // 方便调试
@@ -105,6 +109,8 @@ class App extends Component {
               <Route path="/order/:id" component={OrderDetail}/>
               <Route path="/member/profile" component={Profile} />
               <Route path="/member" component={Member} />
+              <Route path="/coupon/list" component={CouponList} />
+              <Route path="/coupon/:id" component={CouponDetail} />
               <Route path="/" exact component={HomePage} />
             </Switch>
 

@@ -43,3 +43,9 @@ export const ORDER_DETAIL = 'orderinfo'
 
 // 取消订单
 export const ORDER_CANCEL = 'cancelorder'
+
+// 优惠券
+export const COUPON_LIST = 'couponlist'
+
+//
+export const COUPON_DETAIL = 'couponinfo'

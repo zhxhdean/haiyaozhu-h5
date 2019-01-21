@@ -28,9 +28,8 @@ class OrderList extends Component {
     // 滚动条高度
     const scrollTop = document.documentElement.scrollTop
     // 文档高度
-    const documentHeight = document.getElementsByClassName('order-list')[
-      +tabKey - 1
-    ].offsetHeight
+    const el_doc = document.getElementsByClassName('order-list')[+tabKey - 1]
+    const documentHeight = (el_doc && el_doc.offsetHeight) || 0
     // 窗体高度
     const windowHeight = window.innerHeight
     if(documentHeight < windowHeight){
@@ -149,7 +148,7 @@ const OrderItem = ({
   return (
     <div className="order-item" onClick={onClick}>
       <div className="order-hotel-name">
-        <h1>{OrderNo}</h1>{' '}
+        <h1>{HotelName}</h1>{' '}
         <span className="price">￥{Price.ActualPayPrice}</span>
       </div>
       <div className="order-hotel-address">
