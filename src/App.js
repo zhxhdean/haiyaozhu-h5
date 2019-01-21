@@ -16,6 +16,7 @@ import Profile from './pages/Member/Profile/Profile.js'
 import OrderDetail from './pages/Order/OrderDetail'
 import CouponList from './pages/Coupon/CouponList'
 import CouponDetail from './pages/Coupon/CouponDetail'
+import AboutUs from './pages/AboutUs/AboutUs'
 import './index.less'
 import homePageStore from './pages/HomePage/HomePage.Store'
 import hotelListStore from './pages/HotelList/HotelList.Store'
@@ -111,6 +112,7 @@ class App extends Component {
               <Route path="/member" component={Member} />
               <Route path="/coupon/list" component={CouponList} />
               <Route path="/coupon/:id" component={CouponDetail} />
+              <Route path="/about" component={AboutUs}/>
               <Route path="/" exact component={HomePage} />
             </Switch>
 

@@ -62,7 +62,7 @@ class Profile extends Component {
 
         <dl className="menu">
           <dd>
-            <Link to="/member/profile"><i className="icon about" /><span>关于我们</span><Icon type="right" /></Link>
+            <Link to="/about"><i className="icon about" /><span>关于我们</span><Icon type="right" /></Link>
           </dd>
           <dd>
           <Link to="/member/order"><i className="icon online-service" /><span>一只虎在线客服</span><Icon type="right" /></Link>
