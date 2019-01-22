@@ -147,7 +147,7 @@ class HotelDetail extends Component {
     const { hotelDetail } = this.props.hotelDetailStore
     const url = `/chat?fromname=${userDetail.Name}&from=${userInfo.UID}&to=${
       hotelDetail.Uid
-    }&toname=酒店&chattype=0`
+    }&toname=${hotelDetail.HotelName}&chattype=0`
     this.props.history.push({pathname: url})
   }
 
