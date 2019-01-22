@@ -107,9 +107,7 @@ class Chat extends Component {
     this.setState({ msg: '' })
   }
   handleInputChange = e => {
-    if (e.target.value) {
-      this.setState({ msg: e.target.value })
-    }
+    this.setState({ msg: e.target.value })
   }
   render() {
     const { userInfo, loading } = this.props.rootStore || {}
