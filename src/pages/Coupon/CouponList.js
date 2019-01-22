@@ -5,6 +5,7 @@ import { Spin, Modal, Icon } from 'antd'
 import { inject, observer } from 'mobx-react'
 import Head from '_src/components/Head/Head'
 import moment from 'moment'
+
 @inject('rootStore', 'couponStore')
 @observer
 class CouponList extends Component {
@@ -88,6 +89,9 @@ class CouponList extends Component {
             {couponList.map((item, index) => (
               <HotelCouponItem key={index} {...item} onClick={this.handleRedirectDetail}/>
             ))}
+            {
+              couponList.length === 0 ? '没有优惠券' : ''
+            }
           </div>
         </Spin>
       </div>

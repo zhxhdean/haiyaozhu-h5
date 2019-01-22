@@ -17,6 +17,7 @@ import OrderDetail from './pages/Order/OrderDetail'
 import CouponList from './pages/Coupon/CouponList'
 import CouponDetail from './pages/Coupon/CouponDetail'
 import AboutUs from './pages/AboutUs/AboutUs'
+import RedirectPage from './pages/Redirect/Redirect'
 import Chat from './pages/Chat/Chat'
 import './index.less'
 import homePageStore from './pages/HomePage/HomePage.Store'
@@ -117,6 +118,7 @@ class App extends Component {
               <Route path="/coupon/:id" component={CouponDetail} />
               <Route path="/about" component={AboutUs}/>
               <Route path="/chat" component={Chat}/>
+              <Route path="/redirect" component={RedirectPage} />
               <Route path="/" exact component={HomePage} />
             </Switch>
 

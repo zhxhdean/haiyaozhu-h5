@@ -51,3 +51,6 @@ export const COUPON_LIST = 'couponlist'
 export const COUPON_DETAIL = 'couponinfo'
 // 聊天记录
 export const MESSAGE_LIST = 'msg_list'
+
+// 订单优惠
+export const SUBSCRIPTION = 'likenum'

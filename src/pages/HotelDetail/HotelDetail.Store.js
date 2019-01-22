@@ -1,6 +1,6 @@
 import {observable,action} from 'mobx'
 import {post} from '../../service/request'
-import {HOTEL_DETAIL, HOTEL_ROOM_PRICE} from '../../service/urls'
+import {HOTEL_DETAIL, HOTEL_ROOM_PRICE, SUBSCRIPTION} from '../../service/urls'
 import util from '../../common/util'
 class HotelDetailStore{
   @observable showCheckInModal = false
@@ -43,6 +43,11 @@ class HotelDetailStore{
         this[name] = value
       }
       
+    }
+
+    @action
+    async subscribe(id){
+      return await post({url: SUBSCRIPTION, data: {hotelid: id}})
     }
 
     @action

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Carousel, Icon, Spin } from 'antd'
+import {Link} from 'react-router-dom'
 import Head from '../../components/Head/Head'
 import './HotelDetail.less'
 import { inject, observer } from 'mobx-react'
@@ -125,6 +126,31 @@ class HotelDetail extends Component {
     })
   }
 
+  // 订阅
+  handleSubscribe = num => {
+    if (!num) {
+      const { id } = this.props.match.params
+      this.props.hotelDetailStore.subscribe(id).then(rsp => {
+        if (rsp.code === 0) {
+          let el = document.getElementsByClassName('follow')[0]
+          util.showToast('订阅成功')
+          el && (el.className = 'followed')
+          el && (el.innerText = '已订阅')
+        }
+      })
+    }
+  }
+
+  handleChat = () => {
+    const { userInfo } = this.props.rootStore
+    const userDetail = userInfo.UserDetail || {}
+    const { hotelDetail } = this.props.hotelDetailStore
+    const url = `/chat?fromname=${userDetail.Name}&from=${userInfo.UID}&to=${
+      hotelDetail.Uid
+    }&toname=酒店&chattype=0`
+    this.props.history.push({pathname: url})
+  }
+
   render() {
     const { loading, loading2 } = this.props.rootStore
     const {
@@ -193,11 +219,14 @@ class HotelDetail extends Component {
               </h3>
             </div>
             <div>
-              <div className={hotelDetail.LikeNum > 0 ? 'followed' : 'follow'}>
+              <div
+                className={hotelDetail.LikeNum > 0 ? 'followed' : 'follow'}
+                onClick={this.handleSubscribe.bind(this, hotelDetail.LikeNum)}
+              >
                 {hotelDetail.LikeNum > 0 ? '已订阅' : '订阅优惠推送'}
               </div>
               {hotelDetail.HotelType === 0 ? (
-                <div className="wechat">
+                <div className="wechat" onClick={this.handleChat}>
                   微信联系
                   <Icon type="wechat" />
                 </div>
@@ -228,10 +257,10 @@ class HotelDetail extends Component {
           {hotelDetail.HotelType === 1 && (
             <div className="hotel-website">
               <h2>{hotelDetail.HotelName}</h2>
-              <h2>http://h5.kaiyuanhotels.com/</h2>
-              <a className="button" href="http://h5.kaiyuanhotels.com/">
+              {/* <h2>{hotelDetail.HotelUrl}</h2> */}
+              <Link className="button" to={`/redirect?url=${hotelDetail.HotelUrl}&name=${hotelDetail.HotelName}`}>
                 转官网预定
-              </a>
+              </Link>
             </div>
           )}
 
@@ -279,7 +308,8 @@ class HotelDetail extends Component {
                       item => item.ResourceType === 2
                     )
                   const fee = (_fee && _fee.UsePoint) || 0
-                  const payType = subRoom.RoomInfoDataList[0].PayType === 'FG' ? 0 : 1
+                  const payType =
+                    subRoom.RoomInfoDataList[0].PayType === 'FG' ? 0 : 1
                   return (
                     <div className="hotel-room-price" key={index}>
                       <div className="hotel-room-price-item">
