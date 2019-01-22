@@ -204,7 +204,7 @@ class HotelDetail extends Component {
             </div>
 
             <div className="hotel-name">{hotelDetail.HotelName}</div>
-            <div className="more-info">详情>></div>
+            {/* <div className="more-info">详情>></div> */}
           </div>
 
           <div className="hotel-info">
