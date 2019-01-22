@@ -123,7 +123,7 @@ class Chat extends Component {
       }, 100)
     return (
       <div className="chat-page">
-        <Head back={true} title={`与酒店在线聊天`} />
+        <Head back={true} title={`${toName}`} />
         <div className="chat-list">
           <div className="message-list">
             <Spin spinning={loading} />
@@ -148,7 +148,7 @@ class Chat extends Component {
                     />
                   </div>
                   <div className="content">
-                    {item.direction === chatType ? '' : toName } { item.direction !== chatType ?  (online ? <i className="online"/>: <i className="offline"/>): null}
+                    <span>{ item.direction !== chatType ?  (online ? <i className="online"/>: <i className="offline"/>): null}</span>
                     <p>{item.message}</p>
                   </div>
                 </div>
