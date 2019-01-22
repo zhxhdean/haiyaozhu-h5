@@ -43,7 +43,6 @@ class Chat extends Component {
     })
 
     client.on('message', message => {
-      console.log(message)
       // 监听收到的数据
       if (message.from === toUid) {
         const { messageList } = this.props.messageStore
@@ -54,6 +53,7 @@ class Chat extends Component {
           message: message.content,
           to: toUid
         })
+        this.setState({online: true})
       }
     })
     client.on('connect_error', obj => {
