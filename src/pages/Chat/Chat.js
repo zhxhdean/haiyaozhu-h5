@@ -148,7 +148,7 @@ class Chat extends Component {
                     />
                   </div>
                   <div className="content">
-                    {item.direction === chatType ? '' : (toName + (online ? ' 在线': ' 离线'))}
+                    {item.direction === chatType ? '' : toName } { item.direction !== chatType ?  (online ? <i className="online"/>: <i className="offline"/>): null}
                     <p>{item.message}</p>
                   </div>
                 </div>
