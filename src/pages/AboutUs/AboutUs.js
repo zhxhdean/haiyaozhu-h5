@@ -9,7 +9,7 @@ const AboutUs = () => {
       <div className="about-us">
         <div className="logo">
           {' '}
-          <img src={logo} />
+          <img src={logo} alt="logo"/>
           一只虎度假直通车 1.0.0
         </div>
 

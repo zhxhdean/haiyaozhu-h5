@@ -65,7 +65,7 @@ class Profile extends Component {
             <Link to="/about"><i className="icon about" /><span>关于我们</span><Icon type="right" /></Link>
           </dd>
           <dd>
-          <Link to="/member/order"><i className="icon online-service" /><span>一只虎在线客服</span><Icon type="right" /></Link>
+          <Link to={`/chat?fromname=${userDetail.Name}&from=${userInfo.UID}&to=1111111111111111111111111111112&toname=在线客服&chattype=0`}><i className="icon online-service" /><span>一只虎在线客服</span><Icon type="right" /></Link>
           </dd>
           
         </dl>

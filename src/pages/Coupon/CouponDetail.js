@@ -35,7 +35,7 @@ class CouponDetail extends Component {
 
             <Divider />
             <p>
-              <img src={`data:image/jpg;base64,${couponDetail.Url}`} />
+              <img alt="二维码" src={`data:image/jpg;base64,${couponDetail.Url}`} />
             </p>
             <p>使用时请出示该二维码</p>
           </div>
